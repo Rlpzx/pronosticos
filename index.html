@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PronosticosPro - Tu plataforma de pronósticos deportivos</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>PronosticosPro</h1>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#pronosticos">Pronósticos</a></li>
+                    <li><a href="#ranking">Ranking</a></li>
+                    <li><a href="#perfil">Mi Perfil</a></li>
+                    <li><a href="#foro">Foro</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <aside class="sidebar">
+            <section id="live-scores">
+                <h2>Resultados en vivo</h2>
+                <div id="live-scores-container"></div>
+            </section>
+            <section id="upcoming-events">
+                <h2>Próximos eventos</h2>
+                <div id="upcoming-events-container"></div>
+            </section>
+        </aside>
+
+        <section id="main-content">
+            <h2>Bienvenido a PronosticosPro</h2>
+            <p>Encuentra los mejores pronósticos deportivos y sigue a los analistas más exitosos.</p>
+            
+            <section id="user-actions">
+                <button id="login-btn" class="btn">Iniciar sesión</button>
+                <button id="register-btn" class="btn">Registrarse</button>
+            </section>
+
+            <section id="weekly-ranking">
+                <h2>Ranking Semanal</h2>
+                <ul id="ranking-list"></ul>
+            </section>
+
+            <section id="user-dashboard" style="display: none;">
+                <h2>Mi Panel</h2>
+                <div class="dashboard-section">
+                    <h3>Mis Pronósticos</h3>
+                    <ul id="user-forecasts"></ul>
+                </div>
+                <div class="dashboard-section">
+                    <h3>Mis Transacciones</h3>
+                    <ul id="user-transactions"></ul>
+                </div>
+                <div class="dashboard-section">
+                    <h3>Mis Estadísticas</h3>
+                    <canvas id="user-stats-chart"></canvas>
+                </div>
+                <div class="dashboard-section">
+                    <h3>Mis Logros</h3>
+                    <div id="user-achievements"></div>
+                </div>
+            </section>
+
+            <section id="seller-search">
+                <h2>Buscar Vendedores</h2>
+                <div id="search-filters">
+                    <select id="sport-filter">
+                        <option value="">Todos los deportes</option>
+                        <option value="futbol">Fútbol</option>
+                        <option value="baloncesto">Baloncesto</option>
+                        <option value="tenis">Tenis</option>
+                    </select>
+                    <select id="category-filter">
+                        <option value="">Todas las categorías</option>
+                        <option value="principiante">Principiante</option>
+                        <option value="intermedio">Intermedio</option>
+                        <option value="experto">Experto</option>
+                    </select>
+                    <select id="odds-filter">
+                        <option value="">Todas las cuotas</option>
+                        <option value="baja">Cuota baja</option>
+                        <option value="media">Cuota media</option>
+                        <option value="alta">Cuota alta</option>
+                    </select>
+                    <button id="search-btn" class="btn">Buscar</button>
+                </div>
+                <div id="search-results"></div>
+            </section>
+
+            <section id="forum">
+                <h2>Foro de Discusión</h2>
+                <div id="forum-threads"></div>
+                <button id="new-thread-btn" class="btn">Nuevo Tema</button>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 PronosticosPro. Todos los derechos reservados.</p>
+            <ul>
+                <li><a href="#terminos">Términos y Condiciones</a></li>
+                <li><a href="#privacidad">Política de Privacidad</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <div id="notification-bell">🔔</div>
+    <div id="notification-panel"></div>
+
+    <button id="dark-mode-toggle">Modo Oscuro</button>
+
+    <!-- Modales -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="login-form">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" required>
+                <label for="login-password">Contraseña:</label>
+                <input type="password" id="login-password" required>
+                <button type="submit" class="btn">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Registrarse</h2>
+            <form id="register-form">
+                <label for="register-name">Nombre:</label>
+                <input type="text" id="register-name" required>
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" required>
+                <label for="register-password">Contraseña:</label>
+                <input type="password" id="register-password" required>
+                <label for="register-type">Tipo de usuario:</label>
+                <select id="register-type" required>
+                    <option value="buyer">Comprador</option>
+                    <option value="seller">Vendedor</option>
+                </select>
+                <button type="submit" class="btn">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="new-thread-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Nuevo Tema en el Foro</h2>
+            <form id="new-thread-form">
+                <label for="thread-title">Título:</label>
+                <input type="text" id="thread-title" required>
+                <label for="thread-content">Contenido:</label>
+                <textarea id="thread-content" required></textarea>
+                <button type="submit" class="btn">Crear Tema</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
